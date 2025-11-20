@@ -4,16 +4,23 @@ Rundown of all Cpp OOPs Concepts!
 
 1) Object: Real world entities
 2) Class: collection of objects / blueprint of entities
-3) Class contains: Constructors, Destructor, access specifiers/access modifiers, data members/attributes/fields/propeties, member functions/methods, getters, setters
-4) Constructors:
+
+### Class 
+- **Contains:** Constructors, Destructor, access specifiers/access modifiers, data members/attributes/fields/propeties, member functions/methods, getters, setters
+
+#### Constructors:
+
     a) Default: A default constructor is one that either: 
         (i) Takes no parameters or 
         (ii) has all parameters with default values.
         If you don't define any constructor, C++ automatically provides a default constructor that does nothing 
         (but still constructs the object). However, if you define any other constructor, the compiler 
         does not generate a default constructor automatically unless you explicitly define it.
+
     b) Non-parameterized
+
     c) Parameterized
+    
     d) Copy Constructor
         i) Shallow copy: copies properties of one object to another
         ii) Deep copy: not only copies data member values but also makes copies of dynamically allocated memory that the members points to
