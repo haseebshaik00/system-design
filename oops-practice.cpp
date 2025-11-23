@@ -83,7 +83,42 @@ public:
             for (int j = 0; j < size; ++j)
                 matrix[i][j] = s.matrix[i][j];
     }
-    
+
+    Student& operator=(const Student &s){
+        if (this == &s) {
+            // self-assignment: s1 = s1;
+            return *this;
+        }
+
+        // id is const, so we CANNOT assign to it.
+        // You might want to assert that ids are equal if that's a logical requirement:
+        // if (id != s.id) { /* maybe throw or log error */ }
+        // Note: I'm just copying the content of s2, keeping the original id of s3;
+
+        this->age = s.age;
+        this->name = s.name;
+        this->setFees(s.getFees());
+
+        // If sizes differ, reallocate matrix
+        if (size != s.size) {
+            // free old matrix
+            if (matrix) {
+                for (int i = 0; i < size; ++i)
+                    delete[] matrix[i];
+                delete[] matrix;
+            }
+            size = s.size;
+            matrix = new int*[size];
+            for (int i = 0; i < size; ++i)
+                matrix[i] = new int[size];
+        }
+        // copy the matrix contents
+        for (int i = 0; i < size; ++i)
+            for (int j = 0; j < size; ++j)
+                matrix[i][j] = s.matrix[i][j];
+        return *this;   // return *this, NOT a local
+    }
+
     void setFees(const double fees){ // const parameters: whose values aren't changed inside the function
         this->fees = fees; // this function can't be constant
     }
@@ -93,7 +128,7 @@ public:
     }
 
     void getInfo() const { // const functions: functions that don't change the data members values of the class
-        cout<<id<<" "<<name<<" "<<age<<" "<<getFees()<<endl;
+        cout<<id<<" "<<name<<" "<<age<<" "<<getFees()<<" "<<"size="<<size<<endl;
         cout<<"Matrix"<<endl;
         for(int i=0; i<size; ++i){
             for(int j=0; j<size; ++j)
@@ -121,7 +156,7 @@ int main(){
     t1.getInfo();
     t2.getInfo();
 
-    Student s1(001, 25, "Harry", 10000);
+    Student s1(101, 25, "Harry", 10000);
     s1.getInfo();
     Student s2(s1); // Deep copy constructor
     s2.getInfo();
@@ -130,6 +165,11 @@ int main(){
     s2.matrix[0][0]=1;
     s1.getInfo();
     s2.getInfo();
+
+    // with diff id and size! - be careful sending parameters to initialization list!
+    Student s3(201, 23, "Haseeb", 5000, 4);
+    s3 = s2;
+    s3.getInfo();
 
     return 0;
 }
