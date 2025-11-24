@@ -2,7 +2,25 @@
 #include<iostream>
 using namespace std;
 
-class Teacher{
+class IPerson{
+public:
+    virtual void getInfo() const = 0;
+    virtual ~IPerson() = 0; // it's pure now so should be implemented below
+    // virtual ~IPerson() = default; - still virtual, but not pure
+};
+
+IPerson::~IPerson() {}           // must still define it (body can be empty)
+
+// Alternate implementation with a mix of pure and impure virtual func!
+// class IPerson {
+// public:
+//     virtual void getInfo() const = 0;  // still makes class abstract
+//     virtual ~IPerson() = default;      // virtual, but NOT pure
+// };
+
+
+// virtually inheriting IPerson to avoid diamond inheritance problem!
+class Teacher: virtual public IPerson{
 protected:
     double salary;
 public:
@@ -31,19 +49,24 @@ public:
         this->salary = salary;
     }
 
+    void setSalary(const double salary, double discount){ // Function overloading
+        this->salary = salary * (1-discount)/100;
+    }
+
     // Getter
     double getSalary() const{
         return salary;
     }
 
-    virtual void getInfo () const {
+    // virtual void getInfo () const override { - writing virtual here is redundant! as already written in interface.
+    void getInfo () const override {
         cout<<"#"<<id<<": "<<name<<" from "<<dept<<" dept, earns "<<"$"<<getSalary()<<"/yr!"<<endl;
     }
 
-    virtual ~Teacher() = default; // if you don't want to write anything in the destructor keep it as default!
+    ~Teacher() override = default; // if you don't want to write anything in the destructor keep it as default!
 };
 
-class Student{
+class Student: virtual public IPerson{
 private:
     double fees;
 public:
@@ -144,7 +167,7 @@ public:
         return fees;
     }
 
-    virtual void getInfo() const { // const functions: functions that don't change the data members values of the class
+    virtual void getInfo() const override { // const functions: functions that don't change the data members values of the class
         cout<<"#"<<id<<": "<<name<<", Age: "<<age<<", pays="<<getFees()<<" & has matrix: "<<"size="<<size<<endl;
         cout<<"Matrix"<<endl;
         for(int i=0; i<size; ++i){
@@ -154,7 +177,7 @@ public:
         }
     }
 
-    virtual ~Student(){
+    ~Student() override{
         if(matrix){
             for(int i=0; i<size; ++i)
                 delete[] matrix[i];
@@ -185,7 +208,7 @@ public:
         Teacher::getInfo();   // call Teacher version
     }
 
-    ~TA(){
+    ~TA() override{
         cout<<"Destructor from TA class says Hi!";
     }
 };
@@ -225,6 +248,12 @@ int main(){
     Student *ta2 = new TA(402, 27, "TA-Niall", 7500, "MPAc", 75000.0, false); // this is actual runtime polymorphism
     ta2->getInfo();
     delete ta2;
+
+    IPerson *ta3 = new TA(402, 27, "TA-Niall", 7500, "MPAc", 75000.0, false); // this is actual runtime polymorphism
+    // ta3 fails because of the diamond multiple inheritance issue described above!
+    // solution - use virtual inhertance!
+    ta3->getInfo();
+    delete ta3;
 
     return 0;
 }

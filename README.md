@@ -67,4 +67,10 @@ Friend Function: A friend function is not a member of the class but has access t
 Friend Class: If one class needs to access private/protected members of another class, make it a friend class.
 
 
-![alt text](image.png)
+## Notes!
+[1] ![alt text](image.png)
+[2] When to use virtual and override?
+In base interface (IPerson): use virtual!
+In first concrete derived (Teacher, Student): use override, no need for virtual.
+In further derived (TA, GradStudent): also just use override.
+[3] 
