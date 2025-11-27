@@ -222,13 +222,20 @@ public:
     }
 
     ~TA() override{
-        cout<<"Destructor from TA class says Hi!";
+        cout<<"Destructor from TA class says Hi!"<<endl;
     }
 };
 
 void demoStaticVar(){
     static int count = 0;
     cout<<"Static variable - count, called "<<++count<<" times!"<<endl;
+}
+
+void demoStaticObj(){
+    // This is how singletons / caches / loggers are often implemented: static objects that live for the whole run.
+    static Student classRep(999, 22, "Static-Rep", 5178, 2);
+    cout<<"[demoStaticObject] Class Representative info:"<<endl;
+    classRep.getInfo();
 }
 
 int main(){
@@ -276,6 +283,8 @@ int main(){
     demoStaticVar();
     demoStaticVar();
     demoStaticVar();
+
+    demoStaticObj();
 
     cout<<"Teachers count from main = "<<Teacher::getTeacherCount()<<endl;
 
