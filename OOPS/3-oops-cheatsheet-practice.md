@@ -9,6 +9,7 @@ Constructors
     a) Default: A default constructor is one that either: 
         (i) Takes no parameters or 
         (ii) has all parameters with default values.
+        > A default constructor is any constructor that can be called without passing arguments.
         If you don't define any constructor, C++ automatically provides a default constructor that does nothing (but still constructs the object). However, if you define any other constructor, the compiler does not generate a default constructor automatically unless you explicitly define it.
     b) Non-parameterized
     c) Parameterized
