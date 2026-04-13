@@ -18,7 +18,7 @@ A class typically contains:
 - **Constructors**
 - **Destructor**
 - **Access specifiers**: `public`, `private`, `protected`
-- **Getters / setters`
+- `Getters / setters`
 
 Optional:
 
