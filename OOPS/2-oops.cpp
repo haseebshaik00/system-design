@@ -2,6 +2,8 @@
 #include<iostream>
 using namespace std;
 
+// Refactored using GPT 5.3: Thinking Model
+
 // ======= FRIEND FUNCTION DEMO FORWARD DECLARATION =======
 class Teacher;
 

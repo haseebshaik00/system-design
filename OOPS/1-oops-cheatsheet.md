@@ -1,4 +1,6 @@
-# C++ OOP – Cheatsheet (with Code Insights)
+# C++ OOPS – Cheatsheet (with Code Insights)
+
+> *Redacted using GPT 5.3: Thinking Model*
 
 ## 1. Object & Class
 
