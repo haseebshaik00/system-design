@@ -11,15 +11,17 @@ Constructors
         (ii) has all parameters with default values.
         > A default constructor is any constructor that can be called without passing arguments.
         If you don't define any constructor, C++ automatically provides a default constructor that does nothing (but still constructs the object). However, if you define any other constructor, the compiler does not generate a default constructor automatically unless you explicitly define it.
-        [Default Constructor](../public/default-constructor.png)
-        > Here, if you define a define a single parameterized constructor, then you should also define 
+        > Below, if you define a define a single parameterized constructor, then you should also define 
         A()=default; for invoking A a; - or else this won't work!
+
+![Default Constructor](../public/default-constructor.png)
 
 ```cpp
 class A {
     int x;
 public:
     A() = default;              // Default constructor
+    A(int val=0){ }             // Still Default constructor
     A(int val) { x = val; }     // Parameterized constructor
 };
 ```
@@ -29,7 +31,7 @@ public:
     d) Copy Constructor
         i) Shallow copy: copies properties of one object to another
         ii) Deep copy: not only copies data member values but also makes copies of dynamically allocated memory that the members points to
-        iii) Copy assignment operator: copy constructor can be called only once, where as copy assignment operator can be called mutiple times, can be overloaded with operator loading of "equals"
+        iii) Copy assignment operator: copy constructor can be called only once, where as copy assignment operator can be called mutiple times, can be overloaded with operator loading of "equals". The copy constructor is called when a new object is initialized from another object, while the copy assignment operator is called when an already existing object is assigned from another object. Since an object is constructed only once but can be assigned many times, copy assignment can be invoked multiple times for the same object. The copy assignment operator is written by overloading operator=.
 3) Destructors
 4) this keyword: special pointer in cpp that points to the current object = this->x is same as *(this).x
 5) Initialization List and const:
@@ -45,14 +47,48 @@ public:
 7) OOPS Concepts
 
     a) Encapsulation: wrapping up of data members and methods in a single unit called class
-    
-    b) Inheritance: data members and methods of a base class is passed on to the derived class
-       
-       - Mode of Inheritance: base class can be inherited as private, protected and public (mode)
-        
-        - Types of Inheritance: Single Level, Multi-level, Multiple, Hierarchial, and Hybrid
+    [implemented using Access specifiers, classes, getters/setters]
+    Data Hiding: **Only** hide unnecessary/sensitive details
 
-    c) Polymorphism: ability of objects to take different forms or behaving in a different way based on the context in which they are used
+    b) Abstraction: Hiding unnecessary/sensitive implementation details and showing only the required/important parts!
+    [implemented using Abstract interface, functions, abstract classes]
+
+    Encapsulation is the process of wrapping data and methods into a single unit called class and restricting direct access to the data using mechanisms like private members and getters/setters.
+    Abstraction is the process of hiding internal implementation details and showing only the essential functionality to the user.
+
+    In simple terms:
+    Encapsulation = hide data | Abstraction = hide complexity
+
+    Example: Below, in the Car class, making speed private and accessing it through getters/setters is encapsulation, while providing a start() function without exposing the engine logic is abstraction.
+
+```cpp
+class Car {
+private:
+    int speed; // encapsulation: hidden data
+
+public:
+    Car() : speed(0) {}
+
+    void setSpeed(int s) { // encapsulation through setter
+        if (s >= 0)
+            speed = s;
+    }
+
+    int getSpeed() const { // encapsulation through getter
+        return speed;
+    }
+
+    void start() { // abstraction: user just starts the car
+        cout << "Car started\n";
+    }
+};
+```
+
+    c) Inheritance: data members and methods of a base class is passed on to the derived class   
+    - Mode of Inheritance: base class can be inherited as private, protected and public (mode)
+    - Types of Inheritance: Single Level, Multi-level, Multiple, Hierarchial, and Hybrid
+
+    d) Polymorphism: ability of objects to take different forms or behaving in a different way based on the context in which they are used
         
         i) Compile Time Polymorphism: Function signature (return statement and parameters) is different
             = Constructor Overloading
@@ -71,10 +107,7 @@ public:
                     -- Must be overridden
                     -- Non instantiable base class
                     -- virtual void func() = 0;
-    d) Abstraction: Hiding unnecessary/sensitive details and showing only the required/important parts 
-    [implemented using access modifiers]
     
-    Data Hiding: **Only** hide unnecessary/sensitive details
 8) Abstract Class: used to provide a base class from which other classes can be derived, cannot be instantiated and are meant to be inherited, are typically used to define interfaces of derived class. A class becomes abstract if it contains at least one pure virtual function. Can have non-virtual methods too.
 9) Static keyword
 
