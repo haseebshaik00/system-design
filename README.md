@@ -39,6 +39,6 @@
 | **Simplicity**            | Avoid over-engineering. Use patterns only when they naturally solve the problem.                                                                       |
 | **Collaborability**       | Code structure should be clear enough that multiple developers can work on different parts without confusion.                                          |
 
-### [4] What is Low-Level Design (LLD)?
+###
 
 ## SOLID Principles
